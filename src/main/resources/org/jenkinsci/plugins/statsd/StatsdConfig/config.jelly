@@ -1,0 +1,15 @@
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:d="jelly:define" xmlns:l="/lib/layout" xmlns:t="/lib/hudson" xmlns:f="/lib/form">
+  <f:section title="Statsd Configuration">
+    <f:entry title="Statsd Prefix" field="prefix" description="prefix for all statsd metrics">
+      <f:textbox name="prefix" />
+    </f:entry>
+
+    <f:entry title="Statsd Host" field="host" description="Hostname or IP of statd server">
+      <f:textbox name="host" />
+    </f:entry>
+
+    <f:entry title="Statsd port" field="port" description="port of statd server">
+      <f:textbox name="port" />
+    </f:entry>
+  </f:section>
+</j:jelly>
