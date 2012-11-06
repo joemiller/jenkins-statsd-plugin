@@ -40,6 +40,12 @@ public class StatsdListener extends RunListener<Run> {
         String result = r.getResult().toString();
         long duration = r.getDuration();
 
+        // sanitize jobName for statsd/graphite. based on: https://github.com/etsy/statsd/blob/v0.5.0/stats.js#L110-113
+        jobName = jobName.replaceAll("\\s+", "_");
+        jobName = jobName.replaceAll("\\.", "_");
+        jobName = jobName.replaceAll("\\/", "-");
+        jobName = jobName.replaceAll("[^a-zA-Z_\\-0-9]", "");
+
         String metricName = prefix + '.' + jobName + '.' + result;
 
         LOGGER.log(Level.INFO, "StatsdListener: config: " + config);
