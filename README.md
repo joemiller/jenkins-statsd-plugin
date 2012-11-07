@@ -8,8 +8,8 @@ add this plugin to each job.
 
 Upon each job completion, the following metrics will be sent:
 
-    statsd.increment('job_name.RESULT', 1)
-    statsd.timing('job_name.RESULT', DURATION)
+    statsd.increment ('PREFIX.job_name.RESULT', 1)
+    statsd.timing    ('PREFIX.job_name.RESULT', DURATION)
 
 Where RESULT is a valid Jenkins build status, eg: SUCCESS, FAILURE, etc. Duration
 is the time taken to run the job.
@@ -19,6 +19,7 @@ Installation
 
 - Browse to Jenkins
 - Manage Jenkins > Advanced > Upload Plugin > Choose File, upload `jenkins-statsd.hpi`
+- (TODO: get this into the jenkins plugin central website)
 
 Configuration
 -------------
@@ -42,8 +43,10 @@ Based on: https://wiki.jenkins-ci.org/display/JENKINS/Plugin+tutorial
 
 AUTHOR
 ------
-@TODO
+Joe Miller <https://github.com/joemiller>
 
-LICENSE
+License
 -------
-@TODO
+Copyright 2012 Joe Miller <https://github.com/joemiller>
+
+Released under the MIT license, see LICENSE for details.
