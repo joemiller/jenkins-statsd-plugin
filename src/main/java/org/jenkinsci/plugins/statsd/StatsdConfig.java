@@ -1,18 +1,13 @@
 package org.jenkinsci.plugins.statsd;
 
-import hudson.Extension;
-import hudson.Util;
-import hudson.model.*;
-import hudson.model.labels.LabelAtom;
-import hudson.util.LogTaskListener;
-import jenkins.model.GlobalConfiguration;
-import jenkins.model.Jenkins;
-import net.sf.json.JSONObject;
-import org.kohsuke.stapler.QueryParameter;
 import org.kohsuke.stapler.StaplerRequest;
 
-import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import hudson.Extension;
+import hudson.model.Descriptor;
+import jenkins.model.GlobalConfiguration;
+import net.sf.json.JSONObject;
 
 /**
  * Global Configuration for Statsd.
@@ -25,6 +20,7 @@ public class StatsdConfig extends GlobalConfiguration {
     private String prefix;
     private String host;
     private int port;
+	private boolean includeNodeInName;
 
     public StatsdConfig() {
         load();
@@ -54,11 +50,20 @@ public class StatsdConfig extends GlobalConfiguration {
         this.prefix = prefix;
     }
 
-    @Override
+	public boolean getIncludeNodeInName() {
+		return includeNodeInName;
+	}
+
+	public void isIncludeNodeInName(boolean includeNodeInName) {
+		this.includeNodeInName = includeNodeInName;
+	}
+
+	@Override
     public boolean configure(StaplerRequest req, JSONObject formData) throws FormException {
         this.prefix = formData.getString("prefix");
         this.host = formData.getString("host");
         this.port = formData.getInt("port");
+		this.includeNodeInName = formData.optBoolean("includeNodeInName");
 
         save();
         return super.configure(req,formData);
