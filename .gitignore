@@ -1,3 +1,5 @@
 Attic
 target
 work
+.idea
+jenkins-statsd.iml
