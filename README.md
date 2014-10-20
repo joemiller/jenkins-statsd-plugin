@@ -14,6 +14,10 @@ Upon each job completion, the following metrics will be sent:
 Where RESULT is a valid Jenkins build status, eg: SUCCESS, FAILURE, etc. Duration
 is the time taken to run the job.
 
+If you configure it to include the node name then the metric key will look as follows:
+
+PREFIX.job_name.node_name.RESULT
+
 Installation
 ------------
 
@@ -30,6 +34,7 @@ Configuration
     - prefix (optional)
     - host (required)
     - port (required)
+    - whether to include the node name
 
 Contributing
 ------------
