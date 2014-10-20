@@ -11,5 +11,9 @@
     <f:entry title="Statsd port" field="port" description="port of statd server">
       <f:textbox name="port" />
     </f:entry>
+
+    <f:entry title="Include node name" field="includeNodeInName" description="whether or not to include the name of the node that the build was run in in the metric key">
+       <f:checkbox name="includeNodeInName" />
+    </f:entry>
   </f:section>
 </j:jelly>
