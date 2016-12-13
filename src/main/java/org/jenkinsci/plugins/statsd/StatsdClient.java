@@ -39,11 +39,12 @@ import java.nio.channels.DatagramChannel;
 import java.util.Locale;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
+import java.util.logging.Logger;
+import java.util.logging.Level;
 
 public class StatsdClient {
     private static final Random RNG = new Random();
-    private static final Logger log = Logger.getLogger(StatsdClient.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(StatsdClient.class.getName());
 
     private final InetSocketAddress _address;
     private final DatagramChannel _channel;
@@ -154,16 +155,12 @@ public class StatsdClient {
             if (data.length == nbSentBytes) {
                 return true;
             } else {
-                log.error(String.format(
-                        "Could not send entirely stat %s to host %s:%d. Only sent %d bytes out of %d bytes", stat,
-                        _address.getHostName(), _address.getPort(), nbSentBytes, data.length));
+                LOGGER.log(Level.WARNING, "Could not send entirely stat "+stat+" to host "+_address.getHostName()+":"+_address.getPort()+". Only sent "+nbSentBytes+" bytes out of "+data.length+" bytes");
                 return false;
             }
 
         } catch (IOException e) {
-            log.error(
-                    String.format("Could not send stat %s to host %s:%d", stat, _address.getHostName(),
-                            _address.getPort()), e);
+            LOGGER.log(Level.WARNING, "Could not send entirely stat "+stat+" to host "+_address.getHostName()+":"+_address.getPort(), e);
             return false;
         }
     }
