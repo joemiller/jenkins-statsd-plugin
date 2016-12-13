@@ -35,10 +35,9 @@ public class StatsdListener extends RunListener<Run> {
         String prefix = config.getPrefix();
         String host = config.getHost();
         int port = config.getPort();
-
+        long duration = calculateDuration(r);
         String jobName = r.getParent().getFullName().toString();
         String result = r.getResult().toString();
-        long duration = r.getDuration();
 
         // sanitize jobName for statsd/graphite. based on: https://github.com/etsy/statsd/blob/v0.5.0/stats.js#L110-113
         jobName = jobName.replaceAll("\\s+", "_");
@@ -62,5 +61,19 @@ public class StatsdListener extends RunListener<Run> {
             LOGGER.log(Level.WARNING, "StatsdListener IOException: ", e);
         }
     }
-
+    /**
+    * Returns the duration of the run. For pipeline jobs, {@link Run#getDuration()} always returns 0,
+    * in this case this method will calculate the duration of the run by using the current time as the
+    * end time.
+    * @param run - A Run object representing a particular execution of Job.
+    * @return - Return the duration of the run
+   */
+    private long calculateDuration(final Run r) {
+        if (r.getDuration() != 0) {
+            return r.getDuration();
+        } else {
+            long durationMillis = System.currentTimeMillis() - r.getStartTimeInMillis();
+            return durationMillis;
+        }
+    }
 }
