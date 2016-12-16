@@ -1,3 +1,6 @@
 Attic
 target
+!target/
+target/*
+!target/jenkins-statsd.hpi
 work
